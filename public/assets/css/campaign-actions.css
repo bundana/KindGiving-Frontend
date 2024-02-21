@@ -1,0 +1,35 @@
+.print-poster {
+ align-items: center;
+ display: flex;
+ height: 18.75rem;
+ position: relative
+}
+
+.print-posterLineRows {
+ height: 18.75rem;
+ position: relative;
+ transform: rotate(90deg);
+ width: 8.25rem
+}
+
+.print-posterLineRowsRotate {
+ height: 9.25rem;
+ left: 50%;
+ padding-top: 1.5rem;
+ position: absolute;
+ text-align: center;
+ top: 50%;
+ transform: translate(-50%,-50%);
+ transform-origin: center center;
+ width: 18.75rem
+}
+
+.print-posterLineRowsRotate div {
+ line-height: 4
+}
+
+.print-posterLineRows:not(:first-child) .print-posterLineRowsRotate {
+ border-bottom: 2px dashed #c8c8c8
+}
+
+ 

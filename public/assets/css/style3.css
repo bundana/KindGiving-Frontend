@@ -1,0 +1,251 @@
+/* Default  */
+:root {
+    --style3-color-body: #acacac;
+    --style3-background-color-1: #24243557;
+}
+
+/*-----------------------------
+ Modal Styles  
+-----------------------------------*/
+body.modal-open {
+    padding: 0 !important;
+}
+
+.share-btn-activation .share-btn-setting {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: var(--color-primary-alta);
+    padding: 5px 0;
+    border-radius: 5px;
+    z-index: 2;
+}
+.share-btn-activation .share-btn-setting .btn-setting-text {
+    border: 0;
+    color: var(--color-white);
+    font-weight: 400;
+    font-size: 14px;
+    padding: 9px 20px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    transition: 0.3s;
+}
+.share-btn-activation .share-btn-setting .btn-setting-text:hover {
+    color: var(--color-primary);
+}
+.share-btn-activation .share-btn-setting .btn-setting-text + .btn-setting-text {
+    border-top: 1px solid var(--color-border);
+}
+
+/*---------------------------------
+   Share Modal Wrapper  
+----------------------------------*/
+.modal-backdrop {
+    background-color: #000;
+}
+
+.modal-backdrop.show {
+    background-color: #000;
+    opacity: 0.75;
+}
+
+.bundana-popup-modal .modal-content {
+    /* background-color: var(--background-color-2); */
+    border: 0 none;
+    padding: 40px 20px;
+    border-radius: 10px;
+}
+@media only screen and (max-width: 767px) {
+    .bundana-popup-modal .modal-content {
+        padding: 20px 15px;
+    }
+}
+.bundana-popup-modal .btn-close {
+    margin: 0;
+    position: fixed;
+    z-index: 99;
+    right: 30px;
+    top: 30px;
+    /* background: rgba(6, 166, 51, 0.08); */
+    background: #00715d;
+
+    opacity: 1;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+.bundana-popup-modal .btn-close svg {
+    color: #ffd000;
+    width: 18px;
+}
+.bundana-popup-modal .modal-header {
+    border: 0 none;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+@media (min-width: 576px) {
+    .bundana-popup-modal .modal-dialog {
+        max-width: 670px;
+    }
+}
+
+/*--------------------------------
+   bundana Popup  
+---------------------------------*/
+.bundana-modal-wrapper p {
+    color: #fff;
+    font-size: 16px;
+}
+.bundana-modal-wrapper .bid-content-top {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 0;
+}
+.bundana-modal-wrapper .bid-content-top span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--style3-color-body);
+}
+.bundana-modal-wrapper .bid-content-mid {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.bundana-modal-wrapper .bid-content-mid span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--style3-color-body);
+}
+.bundana-modal-wrapper .bid-content-mid .bid-content-right span:last-child {
+    color: var(--color-primary);
+}
+
+.bundana-modal-wrapper .modal-header {
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.share-icon {
+    margin-bottom: 20px;
+}
+
+/*--------------------------------
+  Mobile sticky header
+---------------------------------*/
+/* Hide the sticky header initially */
+.main-header-four.sticky-header {
+    display: none;
+}
+
+/* sticky on mobile */
+@media only screen and (max-width: 767px) {
+    .main-header-four.sticky-header {
+        display: flex;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 9999;
+        background-color: #283734;
+    }
+
+    .main-header-four__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+    }
+
+    .main-header-four__logo img {
+        max-width: 120px;
+    }
+}
+
+/*  show the sticky header content */
+.stricky-header .sticky-header__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+/* header sticky on mobile */
+@media only screen and (max-width: 767px) {
+    .main-header-four.sticky-header {
+        display: flex;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 9999;
+        background-color: #283734;
+    }
+
+    .mobile-nav__wrapper.open {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        /* Ensure the mobile wrapper covers the sticky header */
+    }
+}
+
+/* Additional CSS to hide sticky header when mobile menu is open */
+.mobile-nav__wrapper.open + .main-header-four.sticky-header {
+    display: none;
+}
+
+.donate-button {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none !important;
+    background-color: var(--oxpins-primary);
+    color: var(--oxpins-black);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    border-radius: 30px;
+    padding: 5px 15px 5px;
+    transition: all 0.5s linear;
+    overflow: hidden;
+    z-index: 1;
+    margin: 10px;
+}
+
+/* Custom styles for Owl Carousel navigation arrows */
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next {
+    background-color: #ffffff;
+    /* Background color */
+    color: #333333;
+    /* Text color */
+    font-size: 24px;
+    /* Font size */
+    border-radius: 50%;
+    /* Make it round */
+    padding: 10px;
+    /* Adjust padding as needed */
+    margin: 0 10px;
+    /* Add some margin between arrows */
+}
+
+/* On hover styles */
+.owl-carousel .owl-nav button.owl-prev:hover,
+.owl-carousel .owl-nav button.owl-next:hover {
+    background-color: #f2f2f2;
+    /* Hover background color */
+    color: #000000;
+    /* Hover text color */
+}
