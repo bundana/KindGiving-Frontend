@@ -149,7 +149,7 @@ class DonatePage extends Component
         $payment = new HubtelApiServices();
         $returnUrl = route("view-campaign", [$this->campaign->slug]);
         $cancellationUrl = route("view-campaign", [$this->campaign->slug]);
-        $callbackUrl = 'https://api.kindgiving.org/v1/payment/hubtel-callback';
+        $callbackUrl = 'https://api.kindgiving.org/v1/payments/webhooks/hubtel/online-checkout';
         $res = $payment->generateFrontendPaymentInvoice((int) $this->amountToCharge, $this->description, $callbackUrl, $returnUrl, $cancellationUrl);
         $res = json_decode($res, true);
         if (!$res) {
