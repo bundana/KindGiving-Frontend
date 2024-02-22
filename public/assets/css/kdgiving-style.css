@@ -2598,7 +2598,7 @@ body.locked .page-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 41px;
+  margin-bottom: 6px;
 }
 
 .about-one__points li {
@@ -2607,7 +2607,7 @@ body.locked .page-wrapper {
 }
 
 .about-one__points li + li {
-  margin-left: 19px;
+  margin-left: 6px;
 }
 
 .about-one__points li .icon {
@@ -2619,10 +2619,10 @@ body.locked .page-wrapper {
 .about-one__points li .icon:before {
   content: "";
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: -6px;
+  left: -6px;
   height: 43px;
-  width: 43px;
+  width: 13px;
   background-color: var(--oxpins-extra);
   border-radius: 50%;
   transition: all 500ms linear;
@@ -2650,7 +2650,7 @@ body.locked .page-wrapper {
 }
 
 .about-one__points li .text {
-  margin-left: 20px;
+  margin-left: 10px;
   margin-top: -5px;
 }
 
@@ -4779,7 +4779,7 @@ body.locked .page-wrapper {
 .feature-two {
   position: relative;
   display: block;
-  padding: 60px 0 20px;
+  padding: 10px 0 15px;
 }
 
 .feature-two .container {
@@ -8379,7 +8379,7 @@ body.locked .page-wrapper {
 .events-page {
   position: relative;
   display: block;
-  padding: 40px 0 90px;
+  padding: 20px 0 40px;
 }
 
 .events-page .events-one__single {
@@ -9099,7 +9099,7 @@ body.locked .page-wrapper {
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 40px;
-  margin-bottom: 49px;
+  margin-bottom: 8px;
 }
 
 .donation-details__recent-donation-list {
@@ -9322,7 +9322,7 @@ body.locked .page-wrapper {
 .donate-now {
   position: relative;
   display: block;
-  padding: 120px 0 120px;
+  padding: 20px 0 20px;
 }
 
 .donate-now__left {
@@ -13215,7 +13215,7 @@ body.megamenu-popup-active .mobile-nav__content {
   }
   .about-one__points li + li {
     margin-left: 0;
-    margin-top: 25px;
+    margin-top: 5px;
   }
   .about-one__fund-text br {
     display: none;

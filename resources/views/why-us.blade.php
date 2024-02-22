@@ -25,13 +25,13 @@
     <section class="faq-one faq-twos">
         <div class="faq-one-shape-1"
             style="background-image: url({{ asset('assets/images/shapes/faq-one-shape-1.webp') }});"></div>
-        <div class="faq-one-bg"
+        <div class="faq-one-bgs"
             style="background-image: url({{ asset('assets/images/medium-shot-community-members.jpg') }});"></div>
         <div class="container">
             <div class="row">
                 <div class="section-tsitle text-left">
                     <h2 class="section-title__title" style="margin-top: 30px;">
-                        Why KindGiving
+                        Why They Choose Us?
                     </h2>
                 </div>
                 <div class="col-xl-12 col-lg-12" style="margin-bottom: 30px;">
@@ -99,5 +99,5 @@
             </div>
         </div>
     </section>
-    <!--FAQ One End--> 
+    <!--FAQ One End-->
 @endsection

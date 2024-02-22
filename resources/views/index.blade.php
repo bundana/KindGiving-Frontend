@@ -16,7 +16,7 @@
 @section('content')
     <!--Main Slider Start-->
     <section class="main-slider-four clearfix">
-        <div class="overlay"></div> <!-- Add overlay here -->
+        <div class="overlasy"></div> <!-- Add overlay here -->
 
         <div class="swiper-containser thm-swiper_s_slider">
             <div class="swiper-wrapper">
@@ -25,6 +25,8 @@
                         style="background-image: url({{ asset('assets/images/hero-slider-girl-laughing.jpg') }});"></div>
                     <div class="overlay"></div>
                     <!-- /.image-layer -->
+
+
                     <div class="container">
                         <div class="row">
                             <div class="col-xl-9">
@@ -40,7 +42,9 @@
                             </div>
 
                         </div>
+
                     </div>
+
                 </div>
 
             </div>
@@ -144,7 +148,7 @@
         // Slow database query
         $trendingCampaigns = Campaign::where('visibility', 'public')->where('status', 'approved')->where('hide_target', 'no')->where('hide_raised', 'no')->take(10)->get() ?: [];
     @endphp
- 
+
     <style>
         .causes-one__img img {
             height: 200px;
@@ -162,153 +166,117 @@
             /* Hide any overflowed content */
         }
     </style>
-    <section class="cause-tswo">
-        <div class="causes-two-shape-1"
-            style="background-image: url({{ asset('assets/images/shapes/causes-two-shape-1.webp') }});"></div>
+    <!--Causes One Start-->
+    <section class="causes-ozne">
         <div class="container">
-            <div class="section-titlae text-center" style="margin-bottom: 25px">
+            <div class="section-titsle text-center" style="margin-bottom: 10px">
                 <h2 class="section-title__title">Trending Campaigns </h2>
             </div>
             <div class="row">
-                <div class="col-xl-9 col-lg-9">
-                    <div class="causes-two__tab-main-content">
-                        <!--tab-->
-                        <div class="causes-two__inner-content">
-                            <div wire:ignore
-                                class="causes-two__carousels events-one__righ owl-carousel owl-theme thm-owl__carousel"
-                                data-owl-options='{
-                                                    "loop": true,
-                                                    "autoplay": true,
-                                                    "margin": 30,
-                                                    "nav": true,
-                                                    "dots": true,
-                                                    "smartSpeed": 500,
-                                                    "autoplayTimeout": 2000,
-                                                    "navText": ["<span class=\"fa fa-angle-left\"> </span>",
-                                                    "<span class=\"fa fa-angle-right\"> </span>"],
-                                                    "responsive": {
-                                                        "0": {
-                                                            "items": 1
-                                                        },
-                                                        "768": {
-                                                            "items": 1
-                                                        },
-                                                        "992": {
-                                                            "items": 3
-                                                        },
-                                                        "1200": {
-                                                            "items": 3.181111
-                                                        }
-                                                    }
-                                                }'>
+                @if (count($trendingCampaigns) > 0)
+                    @foreach ($trendingCampaigns as $campaign)
+                        @php
+                            $donations = \App\Models\Campaigns\Donations::where('campaign_id', $campaign->campaign_id)->get() ?: [];
+                            $totalAmount = 0; // Initialize total amount outside the loop
 
-                                @if (count($trendingCampaigns) > 0)
-                                    @foreach ($trendingCampaigns as $campaign)
-                                        @php
-                                            $donations = \App\Models\Campaigns\Donations::where('campaign_id', $campaign->campaign_id)->get() ?: [];
-                                            $totalAmount = 0; // Initialize total amount outside the loop
+                            foreach ($donations as $donation) {
+                                // Add each donation amount to the totalAmount
+                                $totalAmount += $donation->amount;
+                            }
 
-                                            foreach ($donations as $donation) {
-                                                // Add each donation amount to the totalAmount
-                                                $totalAmount += $donation->amount;
-                                            }
+                            // Calculate the percentage of goal achieved{{ $campaign->image }}
+                            $progressPercentage = ($totalAmount / $campaign->target) * 100;
+                            $url = \Illuminate\Support\Str::slug($campaign->name);
 
-                                            // Calculate the percentage of goal achieved{{ $campaign->image }}
-                                            $progressPercentage = ($totalAmount / $campaign->target) * 100;
-                                            $url = \Illuminate\Support\Str::slug($campaign->name);
+                            $description = '';
 
-                                            $description = '';
+                            if (\Illuminate\Support\Str::length(strip_tags($campaign->description)) > 50) {
+                                $description = \Illuminate\Support\Str::of(strip_tags($campaign->description))->limit(60);
+                            } else {
+                                $description = strip_tags($campaign->description);
+                            }
 
-                                            if (\Illuminate\Support\Str::length(strip_tags($campaign->description)) > 50) {
-                                                $description = \Illuminate\Support\Str::of(strip_tags($campaign->description))->limit(60);
-                                            } else {
-                                                $description = strip_tags($campaign->description);
-                                            }
+                            $category = '';
+                            if (\Illuminate\Support\Str::limit($campaign->category) > 10) {
+                                $category = \Illuminate\Support\Str::limit($campaign->category, 10);
+                            } else {
+                                $category = $campaign->category;
+                            }
 
-                                            $category = '';
-                                            if (\Illuminate\Support\Str::limit($campaign->category) > 10) {
-                                                $category = \Illuminate\Support\Str::limit($campaign->category, 10);
-                                            } else {
-                                                $category = $campaign->category;
-                                            }
-
-                                        @endphp
-                                        <div class="causes-one__single">
-                                            <div class="causes-one__img campaign-image">
-                                                <img src="{{ $campaign->image }}" alt="img">
-                                                <div class="causes-one__cat">
-                                                    <p>
-                                                        <a
-                                                            href="{{ route('campaigns', ['category' => $category]) }}">{{ $category }}</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="causes-one__content">
-                                                <h3 class="causes-one__title">
-                                                    <a href="{{ route('view-campaign', [$url]) }}">
-                                                        {{ \Illuminate\Support\Str::of($campaign->name)->limit(15) }}
-                                                    </a>
-                                                </h3>
-                                                <p class="causes-one__text">
-                                                    {{ $description }}
-                                                </p>
-                                                <div class="causes-one__progress">
-                                                    <div class="causes-one__progress-shape"
-                                                        style="background-image: url('{{ asset('assets/images/shapes/causes-one-progress-shape-1.webp') }}')">
-                                                    </div>
-                                                    <div class="text-center" style="margin-bottom: 5px"> 
-<a class="donate-button" href="{{ route('campaign-donate', [$campaign->slug]) }}">Donate Now</a>
-                                                    </div>
+                        @endphp
+                        <!--Causes One Single Start-->
+                        <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="100ms">
+                            <div class="causes-one__single">
+                                <div class="causes-one__img campaign-image">
+                                    <img src="{{ $campaign->image }}" alt="img">
+                                    <div class="causes-one__cat">
+                                        <p>
+                                            <a
+                                                href="{{ route('campaigns', ['category' => $category]) }}">{{ $category }}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="causes-one__content">
+                                    <h3 class="causes-one__title">
+                                        <a href="{{ route('view-campaign', [$url]) }}">
+                                            {{ \Illuminate\Support\Str::of($campaign->name)->limit(15) }}
+                                        </a>
+                                    </h3>
+                                    <p class="causes-one__text">
+                                        {{ $description }}
+                                    </p>
+                                    <div class="causes-one__progress">
+                                        <div class="causes-one__progress-shape"
+                                            style="background-image: url('{{ asset('assets/images/shapes/causes-one-progress-shape-1.webp') }}')">
+                                        </div>
+                                        <div class="text-center" style="margin-bottom: 5px">
+                                            <a class="donate-button"
+                                                href="{{ route('campaign-donate', [$campaign->slug]) }}">Donate
+                                                Now</a>
+                                        </div>
 
 
 
 
-                                                    <a href="tel:*713*367#">
-                                                        <h2 style="font-size: 25px; text-align:center">
-                                                            *713*367#</h2>
-                                                    </a>
-                                                    <div class="progress cases__card-progress">
-                                                        <div class="progress-bar cases__card-progress--bar"
-                                                            role="progressbar" style="width: {{ $progressPercentage }}%"
-                                                            aria-valuenow="25" aria-valuemin="0"
-                                                            aria-valuemax="{{ $progressPercentage }}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="causes-one__goals">
-                                                        <p>
-                                                            <span>GH₵{{ $totalAmount }}</span> Raised
-                                                        </p>
-                                                        <p>
-                                                            <span>GH₵{{ $campaign->target }}</span>
-                                                            Goal
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                        <a href="tel:*713*367#">
+                                            <h2 style="font-size: 25px; text-align:center">
+                                                *713*367#</h2>
+                                        </a>
+                                        <div class="progress cases__card-progress">
+                                            <div class="progress-bar cases__card-progress--bar" role="progressbar"
+                                                style="width: {{ $progressPercentage }}%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="{{ $progressPercentage }}">
                                             </div>
                                         </div>
-                                    @endforeach
-                                @endif
-
+                                        <div class="causes-one__goals">
+                                            <p>
+                                                <span>GH₵{{ $totalAmount }}</span> Raised
+                                            </p>
+                                            <p>
+                                                <span>GH₵{{ $campaign->target }}</span>
+                                                Goal
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-
                         </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="container">
-                <div class="become-volunteer-one__inner">
-                    <div class="become-volunteer-one__btn-box" style="margin-bottom: 50px;margin-top: 30px">
-                        <a href="{{ route('campaigns') }}" class="thm-btn become-volunteer-one__btn">See
-                            More Campaigns</a>
+                        <!--Causes One Single End-->
+                    @endforeach
+                @endif
+                <div class="container">
+                    <div class="become-volunteer-one__inner">
+                        <div class="become-volunteer-one__btn-box" style="margin-bottom: 50px;margin-top: 30px">
+                            <a href="{{ route('campaigns') }}" class="thm-btn become-volunteer-one__btn">See
+                                More Campaigns</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!--Causes One End-->
+
 
     @php
         $homeFeatures = [
@@ -335,9 +303,9 @@
         {{-- <div class="become-volunteer-one__shape-1"
             style="background-image: url(assets/images/shapes/become-volunteer-shape-1.webp);"></div> --}}
         <div class="container">
-            <div class="become-volunteer-one__inner">
-                <h3 class="become-volunteer-one__title">
-                    Why KindGiving?
+            <div class="become-volunteer-one__inner" style="margin-bottom: 30px">
+                <h3 class="section-title__title" style="color: white">
+                    Platform Features
                 </h3>
             </div>
             <div class="row">
@@ -418,51 +386,32 @@
                 <div class="counter-one-bg" data-jarallax data-spesed="0.5" data-imgsPosition="50% 0%"
                     style="background-image: url({{ asset('assets/images/bond-family-is-unbreakable-shot-couple-spending-time-outdoors-with-their-parents.jpg') }});">
                 </div>
-                @push('js-section')
-                    <script>
-                        function startCounter(elementId, targetCount, duration) {
-                            let start = 0;
-                            const stepTime = Math.abs(Math.floor(duration / targetCount));
-                            const element = document.getElementById(elementId);
-                            const timer = setInterval(function() {
-                                start++;
-                                element.textContent = start;
-                                if (start == targetCount) {
-                                    clearInterval(timer);
-                                }
-                            }, stepTime);
-                        } 
-                        // Usage
-                        startCounter('campaignsStartedCounter', 178, 3000);
-                        startCounter('totalDonations', 1687561, 8);
-                        startCounter('totalDonors', 66586, 8);
-                        startCounter('totalCountries', 21, 5000);
-                    </script>
-                @endpush
+
                 <ul class="list-unstyled counter-one__list">
                     <li class="counter-one__single">
                         <div class="counter-one__count-box">
-                            <h3 class="counter" id="campaignsStartedCounter">00</h3>
+                            <h3 class="counter timer count-title count-number" data-to="178" data-speed="1500">00</h3>
                             {{-- <span class="counter-one__letter">m</span> --}}
                         </div>
                         <p class="counter-one__text">Campaigns Started</p>
                     </li>
                     <li class="counter-one__single">
                         <div class="counter-one__count-box">
-                            <h3 class="counter" id="totalDonations">00</h3>
+                            <h3 class="counter timer count-title count-number" data-to="1687561" data-speed="1500">00
+                            </h3>
                             {{-- <span class="counter-one__letter">k</span> --}}
                         </div>
                         <p class="counter-one__text">Total Donations</p>
                     </li>
                     <li class="counter-one__single">
                         <div class="counter-one__count-box">
-                            <h3 class="counter" id="totalDonors">00</h3>
+                            <h3 class="counter timer count-title count-number" data-to="66586" data-speed="1500">00</h3>
                         </div>
                         <p class="counter-one__text">Donors</p>
                     </li>
                     <li class="counter-one__single">
                         <div class="counter-one__count-box">
-                            <h3 class="counter" id="totalCountries">00</h3>
+                            <h3 class="counter timer count-title count-number" data-to="21" data-speed="1500">00</h3>
                             <span class="counter-one__letter"></span>
                         </div>
                         <p class="counter-one__text">Countries</p>
@@ -473,100 +422,113 @@
     </section>
     <!--Counter One End-->
 
-    @php
-        $news = [
-            '1' => [
-                'title' => 'Share Hope and Give to Campaigns With Us',
-                'description' => "If you're reading this, chances are you've got a heart full of generosity, ready to make a positive impact. ",
-                'image' => 'assets/images/medium-shot-community-members.jpg',
-                'date' => fake()->date(),
-            ],
-            '2' => [
-                'title' => 'How to Leverage KindGiving',
-                'description' => 'Initiative for Your Organization: A Guide for Churches, Schools, Small Businesses, Nonprofits, and More!',
-                'image' => 'assets/images/medium-shot-community-members.jpg',
-                'date' => fake()->date(),
-            ],
-            '3' => [
-                'title' => 'How to Leverage KindGiving',
-                'description' => 'Initiative for Your Organization: A Guide for Churches, Schools, Small Businesses, Nonprofits, and More!',
-                'image' => 'assets/images/medium-shot-community-members.jpg',
-                'date' => fake()->date(),
-            ],
-        ];
-    @endphp
-    <!--News One Start-->
-    {{-- <section class="news-one">
-        <div class="container">
-            <div class="section-title text-center">
-                <span class="section-title__tagline">News & articles</span>
-                <h2 class="section-title__title">Directly from the <br> latest news and articles
-                </h2>
-            </div>
-            <div class="row">
-                @foreach ($news as $blog)
-                    <!--News One Single Start-->
-                    <div class="col-xl-4 col-lg-4 wow1 fadeInUp" data-wow-delay="100ms">
-                        <div class="news-one__single">
-                            <div class="news-one__img">
-                                <img src="{{ asset($blog['image']) }}" alt="img">
-                            </div>
-                            <div class="news-one__content-box">
-                                <div class="news-one__content-inner">
-                                    <div class="news-one__content">
-                                        <ul class="list-unstyled news-one__meta">
-                                            <li><a  href="#"><i
-                                                        class="far fa-user-circle"></i> Admin</a>
-                                            </li>
-                                            <li><a  href="#"><i
-                                                        class="fas fa-comments"></i> 2
-                                                    Comments</a>
-                                            </li>
-                                        </ul>
-                                        <h3 class="news-one__title"><a  href="#">
-                                                {{ $blog['title'] }}
-                                            </a></h3>
-                                    </div>
-                                    <div class="news-one__bottom">
-                                        <div class="news-one__read-more">
-                                            <a  href="#"> <span
-                                                    class="icon-right-arrow"></span> Read
-                                                More</a>
-                                        </div>
-                                        <div class="news-one__share">
-                                            <a  href="#"><i class="fas fa-share-alt"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="news-one__social-box">
-                                        <ul class="list-unstyled news-one__social">
-                                            <li><a  href="#"><i
-                                                        class="fab fa-facebook-f"></i></a>
-                                            </li>
-                                            <li><a  href="#"><i class="fab fa-twitter"></i></a>
-                                            </li>
-                                            <li><a  href="#"><i class="fab fa-dribbble"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="news-one__date">
-                                    <p>{{ $blog['date'] }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--News One Single End-->
-                @endforeach
-            </div>
-        </div>
-    </section> --}}
-    <!--News One End-->
+
 
 @endsection
 
 
 @push('js-section')
     <script>
+        (function($) {
+            $.fn.countTo = function(options) {
+                options = options || {};
+
+                return $(this).each(function() {
+                    // set options for current element
+                    var settings = $.extend({}, $.fn.countTo.defaults, {
+                        from: $(this).data('from'),
+                        to: $(this).data('to'),
+                        speed: $(this).data('speed'),
+                        refreshInterval: $(this).data('refresh-interval'),
+                        decimals: $(this).data('decimals')
+                    }, options);
+
+                    // how many times to update the value, and how much to increment the value on each update
+                    var loops = Math.ceil(settings.speed / settings.refreshInterval),
+                        increment = (settings.to - settings.from) / loops;
+
+                    // references & variables that will change with each update
+                    var self = this,
+                        $self = $(this),
+                        loopCount = 0,
+                        value = settings.from,
+                        data = $self.data('countTo') || {};
+
+                    $self.data('countTo', data);
+
+                    // if an existing interval can be found, clear it first
+                    if (data.interval) {
+                        clearInterval(data.interval);
+                    }
+                    data.interval = setInterval(updateTimer, settings.refreshInterval);
+
+                    // initialize the element with the starting value
+                    render(value);
+
+                    function updateTimer() {
+                        value += increment;
+                        loopCount++;
+
+                        render(value);
+
+                        if (typeof(settings.onUpdate) == 'function') {
+                            settings.onUpdate.call(self, value);
+                        }
+
+                        if (loopCount >= loops) {
+                            // remove the interval
+                            $self.removeData('countTo');
+                            clearInterval(data.interval);
+                            value = settings.to;
+
+                            if (typeof(settings.onComplete) == 'function') {
+                                settings.onComplete.call(self, value);
+                            }
+                        }
+                    }
+
+                    function render(value) {
+                        var formattedValue = settings.formatter.call(self, value, settings);
+                        $self.html(formattedValue);
+                    }
+                });
+            };
+
+            $.fn.countTo.defaults = {
+                from: 0, // the number the element should start at
+                to: 0, // the number the element should end at
+                speed: 1000, // how long it should take to count between the target numbers
+                refreshInterval: 100, // how often the element should be updated
+                decimals: 0, // the number of decimal places to show
+                formatter: formatter, // handler for formatting the value before rendering
+                onUpdate: null, // callback method for every time the element is updated
+                onComplete: null // callback method for when the element finishes updating
+            };
+
+            function formatter(value, settings) {
+                return value.toFixed(settings.decimals);
+            }
+        }(jQuery));
+
+        jQuery(function($) {
+            // custom formatting example
+            $('.count-number').data('countToOptions', {
+                formatter: function(value, options) {
+                    return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+                }
+            });
+
+            // start all the timers
+            $('.timer').each(count);
+
+            function count(options) {
+                var $this = $(this);
+                options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+                $this.countTo(options);
+            }
+        });
+
+
         particlesJS('particles-js', {
             particles: {
                 number: {

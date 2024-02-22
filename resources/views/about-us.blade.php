@@ -87,8 +87,8 @@
             @endforeach
 
         </div>
-        <div id="why-us"></div>
-        <div class="become-volunteer-one__inner">
+        {{-- <div id="why-us"></div> --}}
+        <div class="become-volunteer-one__inner"  style="margin-bottom: 30px">
             <div class="become-volunteer-one__btn-box">
                 <a href="https://app.kindgiving.org" class="thm-btn become-volunteer-one__btn">Start Now</a>
             </div>
@@ -98,10 +98,10 @@
     </section>
 
     <!--FAQ One Start-->
-    <section class="faq-one faq-twos">
+    {{-- <section class="faq-one faq-twos">
         <div class="faq-one-shape-1"
             style="background-image: url({{ asset('assets/images/shapes/faq-one-shape-1.webp') }});"></div>
-        <div class="faq-one-bg"
+        <div class="faq-one-bg1"
             style="background-image: url({{ asset('assets/images/medium-shot-community-members.jpg') }});"></div>
         <div class="container">
             <div class="row">
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!--FAQ One End-->
 
 
